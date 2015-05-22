@@ -82,7 +82,6 @@ featuresActivities<- featuresActivities[, c("ActivityID", "Activity")]
 partThreeSet <- cbind(featuresActivities$Activity, partTwoSet)
 colnames(partThreeSet)[1] <- "Activity"
 
-
 ##
 ## 4. Appropriately label the data set with descriptive variable names.
 ##
