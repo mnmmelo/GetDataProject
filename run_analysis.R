@@ -4,8 +4,8 @@ library(plyr)
 data.url <-
     "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 
-# If you have an error in your system with the download and unzip, please
-# download and unzip the data files manualy.
+# If you have an error in your system with the automatic download and unzip,
+# please download and unzip the data files manualy.
 if(!file.exists("UCIHARDataset.zip")) {
     download.file(data.url, "./UCIHARDataset.zip", method="curl")
 }
