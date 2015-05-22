@@ -6,11 +6,11 @@ data.url <-
 
 # If you have an error in your system with the automatic download and unzip,
 # please download and unzip the data files manualy.
-if(!file.exists("UCIHARDataset.zip")) {
-    download.file(data.url, "./UCIHARDataset.zip", method="curl")
+if(!file.exists("UCIHAR.zip")) {
+    download.file(data.url, "./UCIHAR.zip", method="curl")
 }
 if(!file.exists("./UCI HAR Dataset")) {
-    unzip("./UCIHARDataset.zip")
+    unzip("./UCIHAR.zip")
 }
 # ------------------------------------------------------------------------
 
@@ -46,7 +46,7 @@ if(!dir.exists("./mergeddata")) {
 ## 2. Extract only the measurements on the mean and standard deviation for each
 ## measurement.
 ##
-if(!exists("meanStdMeasurements")) {
+if(!exists("partTwoSet")) {
     # Get mean() and std() features labels
     meanLabels <- read.table(text = grep("mean()", readLines("./features.txt"),
                                          fixed=TRUE,value=TRUE),
@@ -60,7 +60,7 @@ if(!exists("meanStdMeasurements")) {
     # Get measurement features
     meanStdMeasurements <- read.table("./mergeddata/X.txt", numerals="no.loss")
     # Subset to mean() and std() columns
-    meanStdMeasurements <- meanStdMeasurements[, meanStdLabels$ID]
+    partTwoSet <- meanStdMeasurements[, meanStdLabels$ID]
 }
 
 ##
@@ -79,39 +79,35 @@ featuresActivities <- featuresActivities[order(featuresActivities$ID), ]
 # Subset Activity ID and name
 featuresActivities<- featuresActivities[, c("ActivityID", "Activity")]
 # Bind activity names to the measurements set
-if(ncol(meanStdMeasurements)==66) {
-    meanStdMeasurements <- cbind(featuresActivities$Activity,
-                                 meanStdMeasurements)
-}
+partThreeSet <- cbind(featuresActivities$Activity, partTwoSet)
+colnames(partThreeSet)[1] <- "Activity"
+
 
 ##
 ## 4. Appropriately label the data set with descriptive variable names.
 ##
-if(ncol(meanStdMeasurements)==67) {
-    colnames(meanStdMeasurements)[1] <- "Activity"
-    colnames(meanStdMeasurements)[2:ncol(meanStdMeasurements)] <-
-        as.character(meanStdLabels$FeatureName)
-}
+partFourSet <- partThreeSet
+colnames(partFourSet)[1] <- "Activity"
+colnames(partFourSet)[2:ncol(partFourSet)] <-
+    as.character(meanStdLabels$FeatureName)
 
 ##
 ## 5. From the data set in step 4, creates a second, independent tidy data set
 ## with the average of each variable for each activity and each subject.
 ##
 # Bind Subject column to measurements set
-if(ncol(meanStdMeasurements)==67) {
-    subjects <- read.table("./mergeddata/subject.txt")
-    colnames(subjects) <- "Subject"
-    meanStdMeasurements <- cbind(subjects, meanStdMeasurements)
-}
+subjects <- read.table("./mergeddata/subject.txt")
+colnames(subjects) <- "Subject"
+partFiveSet <- cbind(subjects, partFourSet)
 # Transform the measurements set into narrow tydy format with columns
 # Subject, Activity, Measurement and Value
-tidyData <- melt(meanStdMeasurements, id.vars=c("Subject", "Activity"),
-              variable.name="Measurement", value.name="Value")
+partFiveSet <- melt(partFiveSet, id.vars=c("Subject", "Activity"),
+                    variable.name="Measurement", value.name="Value")
 # Average values by Subject, Activity and Measurement into Mean
-averagedMeasurements <- ddply(tidyData, c("Subject", "Activity", "Measurement"),
+partFiveSet <- ddply(partFiveSet, c("Subject", "Activity", "Measurement"),
                               summarize, Mean = mean(Value))
 # Write averaged measurements dataframe to file without quotes or row names
-write.table(averagedMeasurements, file="../AveragedMeasurements.txt",
+write.table(partFiveSet, file="../AveragedMeasurements.txt",
             quote=FALSE, row.names=FALSE)
 
 ####
