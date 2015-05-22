@@ -107,7 +107,7 @@ if(ncol(meanStdMeasurements)==67) {
 # Subject, Activity, Measurement and Value
 tidyData <- melt(meanStdMeasurements, id.vars=c("Subject", "Activity"),
               variable.name="Measurement", value.name="Value")
-# Average values by Subject, Activity and Measurement into Value
+# Average values by Subject, Activity and Measurement into Mean
 averagedMeasurements <- ddply(tidyData, c("Subject", "Activity", "Measurement"),
                               summarize, Mean = mean(Value))
 # Write averaged measurements dataframe to file without quotes or row names

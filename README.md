@@ -120,5 +120,6 @@ Pseudocode:
 2. Bind the "Subject" column to data frame obtained in Part 4.
 3. Transform the resulting data frame into a narrow tidy data frame with columns:
     + "Subject", "Activity", "Measurement", "Value"
-4. Average the measured values grouped by Subject, Activity and Measurement into the Values column.
+4. Average the measured values grouped by Subject, Activity and Measurement into
+a Mean column.
 5. Write the resulting data frame to "AveragedMeasurements.txt" file.
