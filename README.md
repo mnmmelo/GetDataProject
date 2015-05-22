@@ -1,11 +1,3 @@
----
-title: "Getting and Cleaning Data - Project"
-output:
-  html_document:
-    highlight: zenburn
-    theme: spacelab
-    toc: yes
----
 
 ## Introduction
 To work with in this project we are given a dataset split into several folders
