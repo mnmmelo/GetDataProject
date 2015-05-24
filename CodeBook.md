@@ -21,7 +21,7 @@ The Activity column was bound to the Part 2 set. It contains the 6 level factor
 names of the activities from the file activity_labels.txt. The remainder of the 
 set from Part 2 remain unchanged.
 
-* Activity - Factor w/ 6 levels:
+* featuresActivities$Activity - Factor w/ 6 levels:
     + "LAYING", "SITTING", "STANDING", "WALKING", "WALKING_DOWNSTAIRS", "WALKING_UPSTAIRS"  
 
 ## Part 4 - partFourSet - data frame
