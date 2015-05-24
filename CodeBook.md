@@ -76,6 +76,7 @@ fBodyGyro-mean()-Z,           fBodyGyro-std()-X,            fBodyGyro-std()-Y   
 fBodyGyro-std()-Z,            fBodyAccMag-mean(),           fBodyAccMag-std()          , 
 fBodyBodyAccJerkMag-mean(),   fBodyBodyAccJerkMag-std(),    fBodyBodyGyroMag-mean()    , 
 fBodyBodyGyroMag-std(),       fBodyBodyGyroJerkMag-mean(),  fBodyBodyGyroJerkMag-std()
+ + Mean - Numeric - The average of each variable for each activity and each subject
 
 ### "AveragedMeasurements.txt" file
 The data in the "AveragedMeasurements.txt" is organized into 4 space separated 
